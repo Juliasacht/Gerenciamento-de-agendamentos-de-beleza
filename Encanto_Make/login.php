@@ -3,7 +3,6 @@ session_start();
 include 'conexao.php'; 
 include 'config.php';
 
-criarTopo($SITE . " - Login");
 
 $mensagem = ""; 
 
@@ -14,13 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($email) || empty($senha)) {
         $mensagem = exibirMensagem("ERROR: Todos os campos são obrigatórios.", "erro");
     } else {
-        $sql = "SELECT id, nome, senha FROM usuarios WHERE email = '$email'";
-        $result = mysqli_query($conexao, $sql);
+        $result = consultar($conexao, "SELECT id, nome, senha FROM usuarios WHERE email = ?", [$email])->get_result();
 
         if (mysqli_num_rows($result) > 0) {
             $usuario = mysqli_fetch_assoc($result);
 
             if (password_verify($senha, $usuario['senha'])) {
+                session_regenerate_id(true);
                 $_SESSION['usuario'] = [
                     'id' => $usuario['id'],
                     'nome' => $usuario['nome'],
@@ -37,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+criarTopo($SITE . " - Login");
 ?>
 
 <main>
@@ -45,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php echo $mensagem;?>
         <form action="login.php" method="POST" class="agendamento-form">
             <label for="email">E-mail:</label>
-            <input type="email" name="email" required>
+            <input type="email" id="email" name="email" required>
 
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" required>
+            <input type="password" id="senha" name="senha" required>
 
             <button type="submit">Entrar</button>
         </form>

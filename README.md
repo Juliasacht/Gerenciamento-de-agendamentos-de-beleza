@@ -1,108 +1,16 @@
-# 💄 Encanto Cabelos
+# Bela Agenda
 
-Sistema web desenvolvido para gerenciamento de agendamentos em um salão de beleza, permitindo organização de clientes, serviços e horários de forma simples e eficiente.
+Aplicação web para cadastro de usuários e gerenciamento de horários em um salão de beleza. Com PHP e MySQL, o sistema permite criar uma conta, entrar e acompanhar, editar ou excluir os próprios agendamentos.
 
+## Executar localmente
 
-## 📌 Sobre o projeto
+1. Instale PHP 8.2 ou superior com a extensão `mysqli` e inicie o MySQL ou MariaDB.
+2. Crie o banco `encanto_make` e importe `database/schema.sql`. O arquivo cria as tabelas sem contas ou agendamentos preexistentes.
+3. Na raiz do repositório, execute `php -S localhost:8000 -t Encanto_Make`.
+4. Abra http://localhost:8000, crie uma conta com dados fictícios e agende um horário.
 
-O **Encanto Cabelos** é uma aplicação web desenvolvida com foco em facilitar o controle de atendimentos em um ambiente de beleza.
-O sistema permite o cadastro e gerenciamento de informações, proporcionando mais organização e praticidade no dia a dia.
+A conexão aceita as variáveis de ambiente `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` e `DB_NAME`.
 
+## Demonstração na Vercel
 
-## 🚀 Tecnologias utilizadas
-
-* PHP
-* MySQL
-* HTML5
-* CSS3
-* JavaScript
-
-
-## ⚙️ Funcionalidades
-
-* 👤 Cadastro de usuários
-* 🔐 Sistema de login
-* 📅 Agendamento de serviços
-* 📝 Gerenciamento de dados
-* 💅 Interface voltada para salão de beleza
-
-
-## 🛠️ Como executar o projeto
-
-### Pré-requisitos:
-
-* XAMPP (ou outro servidor com Apache + MySQL)
-
-
-### Passo a passo:
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/seu-usuario/Encanto_Make.git
-```
-
-2. Mova a pasta do projeto para:
-
-```bash
-C:\xampp\htdocs\
-```
-
-3. Inicie o XAMPP:
-
-* Apache ✔️
-* MySQL ✔️
-
-4. Acesse o phpMyAdmin:
-
-```text
-http://localhost/phpmyadmin
-```
-
-5. Crie o banco de dados:
-
-```text
-encanto_make
-```
-
-6. Acesse o sistema no navegador:
-
-```text
-http://localhost/Encanto_Make/
-```
-
----
-
-## 🗄️ Configuração do banco de dados
-
-Verifique o arquivo:
-
-```text
-conexao.php
-```
-
-Configuração padrão:
-
-```php
-mysqli_connect('localhost', 'root', '', 'encanto_make');
-```
-
-
-## 🎯 Objetivo do projeto
-
-Este projeto foi desenvolvido com fins acadêmicos, visando aplicar conceitos de desenvolvimento web, integração com banco de dados e construção de sistemas funcionais.
-
----
-
-## 👩‍💻 Autora
-
-**Julia Sacht**
-📚 Estudante de Tecnologia em Sistemas para Internet
-
----
-
-## 📌 Status do projeto
-
-🚧 Em desenvolvimento / melhorias futuras
-
----
+A publicação do sistema completo requer um runtime comunitário de PHP com `mysqli`, um banco MySQL hospedado e sessões compartilhadas entre instâncias. Use um banco separado, criado a partir de `database/schema.sql`, com dados fictícios. A estrutura atual está configurada para execução local com sessões nativas do PHP.

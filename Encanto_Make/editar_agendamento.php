@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-criarTopo($SITE . " - Editar Agendamento");
 
 $mensagem = ""; 
 $agendamento = []; 
@@ -17,8 +16,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $usuario_id = $_SESSION['usuario']['id'];
 
-    $sql = "SELECT * FROM agendamentos WHERE id = '$id' AND usuario_id = '$usuario_id'";
-    $result = mysqli_query($conexao, $sql);
+    $result = consultar($conexao, "SELECT * FROM agendamentos WHERE id = ? AND usuario_id = ?", [(int) $id, $usuario_id])->get_result();
 
     if (mysqli_num_rows($result) > 0) {
         $agendamento = mysqli_fetch_assoc($result);
@@ -40,18 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($data) || empty($hora) || empty($servico)) {
         $mensagem = exibirMensagem("ERROR: Preencha todos os campos obrigatórios.", "erro");
     } else {
-        $sql = "UPDATE agendamentos 
-                SET data = '$data', hora = '$hora', servico = '$servico', descricao = '$descricao' 
-                WHERE id = '$id' AND usuario_id = '$usuario_id'";
-
-        if (mysqli_query($conexao, $sql)) {
+        if (consultar($conexao, "UPDATE agendamentos SET data = ?, hora = ?, servico = ?, descricao = ? WHERE id = ? AND usuario_id = ?", [$data, $hora, $servico, $descricao, (int) $id, $usuario_id])) {
             header("Location: agendamentos.php");
             exit();
         } else {
-            $mensagem = exibirMensagem("ERROR: Erro ao editar agendamento: " . mysqli_error($conexao), "erro");
+            $mensagem = exibirMensagem("ERROR: Erro ao editar agendamento.", "erro");
         }
     }
 }
+criarTopo($SITE . " - Editar Agendamento");
 ?>
 
 <main>
@@ -64,13 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="hidden" name="id" value="<?php echo $agendamento['id']; ?>">
 
                 <label for="data">Data:</label>
-                <input type="date" name="data" value="<?php echo $agendamento['data']; ?>" required>
+                <input type="date" id="data" name="data" value="<?php echo $agendamento['data']; ?>" required>
 
                 <label for="hora">Hora:</label>
-                <input type="time" name="hora" value="<?php echo substr($agendamento['hora'], 0, 5); ?>" required>
+                <input type="time" id="hora" name="hora" value="<?php echo substr($agendamento['hora'], 0, 5); ?>" required>
 
                 <label for="servico">Serviço:</label>
-                <select name="servico" required>
+                <select id="servico" name="servico" required>
                     <option value="corte" <?php echo ($agendamento['servico'] == 'corte') ? 'selected' : ''; ?>>Corte de Cabelo</option>
                     <option value="escova" <?php echo ($agendamento['servico'] == 'escova') ? 'selected' : ''; ?>>Escova</option>
                     <option value="hidratacao" <?php echo ($agendamento['servico'] == 'hidratacao') ? 'selected' : ''; ?>>Hidratação</option>
@@ -79,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
 
                 <label for="descricao">Descrição (opcional):</label>
-                <textarea name="descricao" rows="4"><?php echo $agendamento['descricao']; ?></textarea>
+                <textarea id="descricao" name="descricao" rows="4"><?php echo escapar($agendamento['descricao'] ?? ''); ?></textarea>
 
                 <button type="submit">Salvar Alterações</button>
             </form>

@@ -1,5 +1,5 @@
 <?php
-$SITE = "Site de Postagens";
+$SITE = "Bela Agenda";
 $SITE_MENU = [
 'Cadastrar' => ['index.php'],
 'Login' => ['login.php'],
@@ -11,6 +11,10 @@ $SITE_MENU_LOGADO = [
     'Sair' => ['sair.php']
     ];
 
+function escapar($valor) {
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+}
+
 function paginaRestrita($logado = 0) {
     if($logado == 0)
     header('Location: login.php?error=Página Restrita, apenas usuários logados tem acesso. ');
@@ -18,7 +22,7 @@ function paginaRestrita($logado = 0) {
 
 function exibirMensagem($texto, $tipo = "sucesso") {
     $classe = ($tipo == "erro") ? "mensagem-erro" : "mensagem-sucesso";
-    return "<div class='$classe'>$texto</div>";
+    return "<div class='$classe' role='status'>" . escapar($texto) . "</div>";
 }
 function estaAtivo($pagina) {
     $paginaAtual = basename($_SERVER['PHP_SELF']);
@@ -34,7 +38,7 @@ function criarMenu($items) {
 }
 
 
-function criarTopo($titulo = "Encanto Makeup") {
+function criarTopo($titulo = "Bela Agenda") {
     global $SITE_MENU;
     global $SITE_MENU_LOGADO;
 
@@ -55,8 +59,8 @@ function criarTopo($titulo = "Encanto Makeup") {
     <body>
         <header>
             <div class="logo-container">
-                <img class="logo" src="./imagens/logo trabalho.png">
-                <h1>Encanto Cabelos</h1>
+                <span class="marca" aria-hidden="true">B</span>
+                <a class="nome-marca" href="index.php">Bela Agenda</a>
             </div>
             <nav>
                ' . $menu . '    
@@ -69,7 +73,7 @@ function criarTopo($titulo = "Encanto Makeup") {
 
 function criarRodape() {
     $rodape = '<footer class="dflex-center">
-    <p>&copy; 2025 Encanto Makeup. Todos os direitos reservados.</p>
+    <p>Bela Agenda · Projeto acadêmico</p>
 </footer>
    
 </body>
