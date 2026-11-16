@@ -1,7 +1,7 @@
 <?php
 $SITE = "Bela Agenda";
 $SITE_MENU = ['Criar conta' => ['index.php'], 'Entrar' => ['login.php']];
-$SITE_MENU_LOGADO = ['Novo horário' => ['agendar.php'], 'Minha agenda' => ['agendamentos.php'], 'Sair' => ['sair.php']];
+$SITE_MENU_LOGADO = ['Dashboard' => ['dashboard.php'], 'Novo horário' => ['agendar.php'], 'Minha agenda' => ['agendamentos.php'], 'Sair' => ['sair.php']];
 function escapar($valor) { return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8'); }
 function paginaRestrita($logado = 0) {
     if (!$logado) { header('Location: login.php'); exit(); }
@@ -25,7 +25,7 @@ function criarTopo($titulo = "Bela Agenda") {
     global $SITE_MENU, $SITE_MENU_LOGADO;
     $logado = isset($_SESSION['usuario']);
     $menu = criarMenu($logado ? $SITE_MENU_LOGADO : $SITE_MENU);
-    $destino = $logado ? 'agendamentos.php' : 'login.php';
+    $destino = $logado ? 'dashboard.php' : 'login.php';
     echo '<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="UTF-8">

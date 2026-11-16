@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'email' => $email
                 ];
 
-                header("Location: agendar.php"); 
+                header("Location: dashboard.php"); 
                 exit();
             } else {
                 $mensagem = exibirMensagem("ERROR: Senha incorreta.", "erro");
