@@ -1,11 +1,11 @@
-# 💄 Encanto Cabelos
+# 💄 Bela Agenda
 
 Sistema web desenvolvido para gerenciamento de agendamentos em um salão de beleza, permitindo organização de clientes, serviços e horários de forma simples e eficiente.
 
 
 ## 📌 Sobre o projeto
 
-O **Encanto Cabelos** é uma aplicação web desenvolvida com foco em facilitar o controle de atendimentos em um ambiente de beleza.
+O **Bela Agenda** é uma aplicação web desenvolvida com foco em facilitar o controle de atendimentos em um ambiente de beleza.
 O sistema permite o cadastro e gerenciamento de informações, proporcionando mais organização e praticidade no dia a dia.
 
 
@@ -101,8 +101,3 @@ Este projeto foi desenvolvido com fins acadêmicos, visando aplicar conceitos de
 
 ---
 
-## 📌 Status do projeto
-
-🚧 Em desenvolvimento / melhorias futuras
-
----
