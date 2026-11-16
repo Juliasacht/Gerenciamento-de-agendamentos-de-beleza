@@ -33,3 +33,9 @@ Para testar o fluxo completo, use uma base de desenvolvimento: cadastre uma cont
 ## Conexão
 
 As variáveis de ambiente `DB_HOST`, `DB_USER`, `DB_PASSWORD` e `DB_NAME` permitem configurar a conexão. Os padrões locais são `localhost`, `root`, senha vazia e `bela_agenda`. Crie as tabelas com `database/schema.sql` antes de abrir o sistema.
+
+## Atualizar uma instalação existente
+
+Para habilitar cliente, profissional, valor e duração nos agendamentos já existentes, importe `Encanto_Make/database/migracao_agendamentos.sql` no banco `bela_agenda` antes de usar a versão nova. A migração adiciona campos opcionais sem apagar registros. Instalações novas devem usar `database/schema.sql`.
+
+O botão **Novo agendamento** abre um formulário sobre o dashboard. Cliente e profissional sugerem os nomes já usados pela própria conta; valor e duração são informados manualmente. A prévia `dashboard.php?demo=1&novo=1` permite visualizar o formulário sem gravar dados.

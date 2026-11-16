@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS agendamentos (
  hora TIME NOT NULL,
  servico VARCHAR(50) NOT NULL,
  descricao TEXT DEFAULT NULL,
+ cliente_nome VARCHAR(100) NULL,
+ profissional VARCHAR(100) NULL,
+ valor DECIMAL(10,2) NULL,
+ duracao_minutos SMALLINT UNSIGNED NULL,
  INDEX (usuario_id),
  CONSTRAINT fk_bela_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

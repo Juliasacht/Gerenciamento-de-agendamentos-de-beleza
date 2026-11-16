@@ -17,7 +17,7 @@ if ($demonstracao) {
 } else {
     include 'conexao.php';
     $nome = $_SESSION['usuario']['nome'];
-    $stmt = mysqli_prepare($conexao, 'SELECT id, data, hora, servico, descricao FROM agendamentos WHERE usuario_id = ? ORDER BY data, hora');
+    $stmt = mysqli_prepare($conexao, 'SELECT id, data, hora, servico, descricao, cliente_nome, profissional, valor, duracao_minutos FROM agendamentos WHERE usuario_id = ? ORDER BY data, hora');
     mysqli_stmt_bind_param($stmt, 'i', $_SESSION['usuario']['id']);
     mysqli_stmt_execute($stmt);
     $agendamentos = mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
@@ -59,15 +59,16 @@ $primeiroNome = explode(' ', trim($nome))[0];
 </header>
 <main class="dashboard-content" id="conteudo">
 <?php if ($demonstracao): ?><p class="demo-notice">Prévia do dashboard · Dados ilustrativos. <a href="login.php">Entre para ver seus agendamentos.</a></p><?php endif; ?>
+<?php if (isset($_SESSION['agendamento_sucesso'])) { echo exibirMensagem($_SESSION['agendamento_sucesso']); unset($_SESSION['agendamento_sucesso']); } ?>
 <div class="dashboard-grid">
 <div class="dashboard-primary">
 <section class="dashboard-card today-card" aria-labelledby="today-title">
 <div class="dashboard-card-heading"><h2 id="today-title">Agendamentos de hoje</h2><span class="count-badge"><?php echo count($agendaHoje); ?> horários</span></div>
 <div class="dashboard-table-scroll"><table><thead><tr><th>Horário</th><th>Cliente</th><th>Serviço</th><th>Agenda</th><th><span class="sr-only">Detalhes</span></th></tr></thead><tbody>
 <?php if (!$agendaHoje): ?><tr><td colspan="5" class="empty-state">Você ainda não tem horários para hoje.<br>Que tal reservar seu próximo cuidado?</td></tr><?php endif; ?>
-<?php foreach ($agendaHoje as $a): ?><tr><td><strong><?php echo escapar(substr($a['hora'],0,5)); ?></strong></td><td><?php echo escapar($primeiroNome); ?></td><td><?php echo escapar($servicos[$a['servico']] ?? $a['servico']); ?></td><td><span class="dashboard-status">Agendado</span></td><td><a class="detail-link" aria-label="Ver agendamento das <?php echo escapar(substr($a['hora'],0,5)); ?>" href="<?php echo $demonstracao ? 'login.php' : 'editar_agendamento.php?id=' . (int)$a['id']; ?>">›</a></td></tr><?php endforeach; ?>
+<?php foreach ($agendaHoje as $a): ?><tr><td><strong><?php echo escapar(substr($a['hora'],0,5)); ?></strong></td><td><?php echo escapar($a['cliente_nome'] ?? $primeiroNome); ?></td><td><?php echo escapar($servicos[$a['servico']] ?? $a['servico']); ?></td><td><span class="dashboard-status">Agendado</span></td><td><a class="detail-link" aria-label="Ver agendamento das <?php echo escapar(substr($a['hora'],0,5)); ?>" href="<?php echo $demonstracao ? 'login.php' : 'editar_agendamento.php?id=' . (int)$a['id']; ?>">›</a></td></tr><?php endforeach; ?>
 </tbody></table></div></section>
-<a class="dashboard-new" href="<?php echo $demonstracao ? 'login.php' : 'agendar.php'; ?>"><span aria-hidden="true">＋</span> NOVO AGENDAMENTO</a>
+<button type="button" class="dashboard-new" data-open-appointment aria-haspopup="dialog" aria-controls="novo-agendamento"><span aria-hidden="true">＋</span> NOVO AGENDAMENTO</button>
 <section class="dashboard-card summary-card" id="resumo"><div><span>Total de agendamentos</span><strong><?php echo $total; ?></strong></div><div><span>Horários hoje</span><strong><?php echo count($agendaHoje); ?></strong></div><div><span>Serviços escolhidos</span><strong><?php echo count($contagens); ?></strong></div></section>
 </div>
 <div class="dashboard-secondary">
@@ -76,4 +77,4 @@ $primeiroNome = explode(' ', trim($nome))[0];
 <?php if (!$contagens): ?><p class="dashboard-empty">Seus serviços mais escolhidos aparecerão aqui após o primeiro agendamento.</p><?php endif; ?>
 <?php foreach ($contagens as $codigo => $quantidade): ?><div class="popular-service"><div><span><?php echo escapar($servicos[$codigo] ?? $codigo); ?></span><strong><?php echo $quantidade; ?></strong></div><div class="service-track"><span style="width:<?php echo round($quantidade / max(1,$total) * 100); ?>%"></span></div></div><?php endforeach; ?>
 </section>
-</div></div></main></div></body></html>
+</div></div></main></div><?php include 'agendamento_form.php'; ?></body></html>
