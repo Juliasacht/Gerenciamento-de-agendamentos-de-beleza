@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-criarTopo($SITE . " - Editar Agendamento");
 
 $mensagem = ""; 
 $agendamento = []; 
@@ -52,25 +51,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+criarTopo($SITE . " - Editar Agendamento");
 ?>
 
-<main>
+<main id="conteudo">
     <div class="agendamento">
         <h2>Editar Agendamento</h2>
         <?php echo $mensagem;?>
 
         <?php if (!empty($agendamento)): ?>
             <form action="editar_agendamento.php" method="POST" class="agendamento-form">
-                <input type="hidden" name="id" value="<?php echo $agendamento['id']; ?>">
+                <input type="hidden" id="id" name="id" value="<?php echo $agendamento['id']; ?>">
 
                 <label for="data">Data:</label>
-                <input type="date" name="data" value="<?php echo $agendamento['data']; ?>" required>
+                <input type="date" id="data" name="data" value="<?php echo $agendamento['data']; ?>" required>
 
                 <label for="hora">Hora:</label>
-                <input type="time" name="hora" value="<?php echo substr($agendamento['hora'], 0, 5); ?>" required>
+                <input type="time" id="hora" name="hora" value="<?php echo substr($agendamento['hora'], 0, 5); ?>" required>
 
                 <label for="servico">Serviço:</label>
-                <select name="servico" required>
+                <select id="servico" name="servico" required>
                     <option value="corte" <?php echo ($agendamento['servico'] == 'corte') ? 'selected' : ''; ?>>Corte de Cabelo</option>
                     <option value="escova" <?php echo ($agendamento['servico'] == 'escova') ? 'selected' : ''; ?>>Escova</option>
                     <option value="hidratacao" <?php echo ($agendamento['servico'] == 'hidratacao') ? 'selected' : ''; ?>>Hidratação</option>
@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
 
                 <label for="descricao">Descrição (opcional):</label>
-                <textarea name="descricao" rows="4"><?php echo $agendamento['descricao']; ?></textarea>
+                <textarea id="descricao" name="descricao" rows="4"><?php echo escapar($agendamento['descricao']); ?></textarea>
 
                 <button type="submit">Salvar Alterações</button>
             </form>

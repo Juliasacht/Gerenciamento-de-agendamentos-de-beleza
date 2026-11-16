@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-criarTopo($SITE . " - Agendar Horário");
 
 $mensagem = ""; 
 
@@ -33,21 +32,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+criarTopo($SITE . " - Agendar Horário");
 ?>
 
-<main>
+<main id="conteudo">
     <div class="agendamento">
-        <h2>Agendar Horário</h2>
+        <h2>Reserve seu momento.</h2><p class="section-description">Escolha o serviço, a data e o horário do seu atendimento.</p>
         <?php echo $mensagem;?>
         <form action="agendar.php" method="POST" class="agendamento-form">
             <label for="data">Data:</label>
-            <input type="date" name="data" required>
+            <input type="date" id="data" name="data" required>
 
             <label for="hora">Hora:</label>
-            <input type="time" name="hora" required>
+            <input type="time" id="hora" name="hora" required>
 
             <label for="servico">Serviço:</label>
-            <select name="servico" required>
+            <select id="servico" name="servico" required>
                 <option value="corte">Corte de Cabelo</option>
                 <option value="escova">Escova</option>
                 <option value="hidratacao">Hidratação</option>
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </select>
 
             <label for="descricao">Descrição (opcional):</label>
-            <textarea name="descricao" rows="4"></textarea>
+            <textarea id="descricao" name="descricao" rows="4"></textarea>
 
             <button type="submit">Agendar</button>
         </form>

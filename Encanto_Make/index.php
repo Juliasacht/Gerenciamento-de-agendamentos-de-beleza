@@ -3,7 +3,6 @@ session_start();
 include 'conexao.php'; 
 include 'config.php';
 
-criarTopo($SITE . " - Cadastro de Usuário");
 
 $mensagem = ""; 
 
@@ -35,21 +34,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+criarTopo($SITE . " - Cadastro de Usuário");
 ?>
 
-<main>
+<main id="conteudo">
     <div class="agendamento">
-        <h2>Cadastro de Usuário</h2>
+        <h2>Seu cuidado começa aqui.</h2><p class="section-description">Crie sua conta e tenha seus agendamentos sempre à mão.</p>
         <?php echo $mensagem;?>
         <form action="index.php" method="POST" class="agendamento-form">
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" required>
+            <input type="text" id="nome" name="nome" required>
 
             <label for="email">E-mail:</label>
-            <input type="email" name="email" required>
+            <input type="email" autocomplete="email" id="email" name="email" required>
 
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" required>
+            <input type="password" autocomplete="new-password" id="senha" name="senha" required>
 
             <button type="submit">Cadastrar</button>
         </form>

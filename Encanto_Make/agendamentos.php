@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-criarTopo($SITE . " - Agendamentos");
 
 $mensagem = ""; 
 
@@ -36,14 +35,15 @@ if (mysqli_num_rows($result) > 0) {
         $agendamentos[] = $row;
     }
 }
+criarTopo($SITE . " - Agendamentos");
 ?>
 
-<main>
-    <div class="agendamento">
-        <h2>Meus Agendamentos</h2>
+<main id="conteudo">
+    <div class="agendamento agenda-list">
+        <div class="section-heading"><div><h2>Minha agenda</h2><p class="section-description">Seus momentos de cuidado, em um só lugar.</p></div><a href="agendar.php" class="btn">+ Novo horário</a></div>
         <?php echo $mensagem;?>
 
-        <table>
+        <div class="table-scroll" role="region" aria-label="Seus agendamentos" tabindex="0"><table>
     <thead>
         <tr>
             <th>Data</th>
@@ -56,15 +56,15 @@ if (mysqli_num_rows($result) > 0) {
     <tbody>
         <?php if (empty($agendamentos)): ?>
             <tr>
-                <td colspan="5">Nenhum agendamento encontrado.</td>
+                <td colspan="5" class="empty-state">Sua agenda está pronta para começar.<br>Reserve seu primeiro momento de cuidado.</td>
             </tr>
         <?php else: ?>
             <?php foreach ($agendamentos as $agendamento): ?>
                 <tr>
-                    <td><?php echo $agendamento['data']; ?></td>
+                    <td><?php echo date('d/m/Y', strtotime($agendamento['data'])); ?></td>
                     <td><?php echo substr($agendamento['hora'], 0, 5); ?></td>
-                    <td><?php echo $agendamento['servico']; ?></td>
-                    <td><?php echo $agendamento['descricao']; ?></td>
+                    <td><?php echo escapar(['corte' => 'Corte de cabelo', 'escova' => 'Escova', 'hidratacao' => 'Hidratação', 'coloracao' => 'Coloração', 'outro' => 'Outro'][$agendamento['servico']] ?? $agendamento['servico']); ?></td>
+                    <td><?php echo escapar($agendamento['descricao']); ?></td>
                     <td>
                         <a href="editar_agendamento.php?id=<?php echo $agendamento['id']; ?>">Editar</a> |
                         <a href="agendamentos.php?excluir=<?php echo $agendamento['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</a>
@@ -73,10 +73,8 @@ if (mysqli_num_rows($result) > 0) {
             <?php endforeach; ?>
         <?php endif; ?>
     </tbody>
-</table>
-        <div>
-            <a href="agendar.php" class="btn">Agendar Novo Horário</a>
-        </div>
+</table></div>
+
     </div>
 </main>
 

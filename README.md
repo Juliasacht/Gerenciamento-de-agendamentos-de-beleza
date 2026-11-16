@@ -1,103 +1,31 @@
-# 💄 Bela Agenda
+# Bela Agenda
 
-Sistema web desenvolvido para gerenciamento de agendamentos em um salão de beleza, permitindo organização de clientes, serviços e horários de forma simples e eficiente.
+Sistema de agendamentos para salão de beleza desenvolvido por **Julia Sacht**, como projeto acadêmico de Tecnologia em Sistemas para Internet.
 
+## Funcionalidades
 
-## 📌 Sobre o projeto
+- Cadastro e login de usuários.
+- Criação, consulta, edição e exclusão dos próprios agendamentos.
+- Interface responsiva em tons de ameixa e rosé.
+- Navegação por teclado, campos com rótulos e datas no formato brasileiro.
 
-O **Bela Agenda** é uma aplicação web desenvolvida com foco em facilitar o controle de atendimentos em um ambiente de beleza.
-O sistema permite o cadastro e gerenciamento de informações, proporcionando mais organização e praticidade no dia a dia.
+## Executar com XAMPP
 
+1. Clone este repositório:
+   `git clone https://github.com/Juliasacht/Gerenciamento-de-agendamentos-de-beleza.git`
+2. Copie a pasta `Encanto_Make` para `C:\xampp\htdocs\`.
+3. Inicie Apache e MySQL.
+4. No phpMyAdmin, importe o arquivo SQL `Encanto_Make/bancodados`.
+5. Confira as credenciais e o nome do banco em `Encanto_Make/conexao.php`.
+6. Acesse http://localhost/Encanto_Make/.
 
-## 🚀 Tecnologias utilizadas
+A aplicação se chama **Bela Agenda**. A pasta e o banco existentes foram preservados para manter compatibilidade com instalações anteriores.
 
-* PHP
-* MySQL
-* HTML5
-* CSS3
-* JavaScript
+## Tecnologias
 
+PHP com MySQLi, MySQL, HTML5 e CSS3. Não é necessário instalar dependências com npm.
 
-## ⚙️ Funcionalidades
+## Verificação
 
-* 👤 Cadastro de usuários
-* 🔐 Sistema de login
-* 📅 Agendamento de serviços
-* 📝 Gerenciamento de dados
-* 💅 Interface voltada para salão de beleza
-
-
-## 🛠️ Como executar o projeto
-
-### Pré-requisitos:
-
-* XAMPP (ou outro servidor com Apache + MySQL)
-
-
-### Passo a passo:
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/seu-usuario/Encanto_Make.git
-```
-
-2. Mova a pasta do projeto para:
-
-```bash
-C:\xampp\htdocs\
-```
-
-3. Inicie o XAMPP:
-
-* Apache ✔️
-* MySQL ✔️
-
-4. Acesse o phpMyAdmin:
-
-```text
-http://localhost/phpmyadmin
-```
-
-5. Crie o banco de dados:
-
-```text
-encanto_make
-```
-
-6. Acesse o sistema no navegador:
-
-```text
-http://localhost/Encanto_Make/
-```
-
----
-
-## 🗄️ Configuração do banco de dados
-
-Verifique o arquivo:
-
-```text
-conexao.php
-```
-
-Configuração padrão:
-
-```php
-mysqli_connect('localhost', 'root', '', 'encanto_make');
-```
-
-
-## 🎯 Objetivo do projeto
-
-Este projeto foi desenvolvido com fins acadêmicos, visando aplicar conceitos de desenvolvimento web, integração com banco de dados e construção de sistemas funcionais.
-
----
-
-## 👩‍💻 Autora
-
-**Julia Sacht**
-📚 Estudante de Tecnologia em Sistemas para Internet
-
----
-
+A sintaxe dos arquivos PHP pode ser verificada com `php -l arquivo.php`.
+Para testar o fluxo completo, use uma base de desenvolvimento: cadastre uma conta, entre, crie um horário, edite-o, exclua-o e encerre a sessão.

@@ -3,7 +3,6 @@ session_start();
 include 'conexao.php'; 
 include 'config.php';
 
-criarTopo($SITE . " - Login");
 
 $mensagem = ""; 
 
@@ -37,18 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+criarTopo($SITE . " - Login");
 ?>
 
-<main>
+<main id="conteudo">
     <div class="agendamento">
-        <h2>Login</h2>
+        <h2>Que bom ter você aqui.</h2><p class="section-description">Entre na sua conta para cuidar dos seus próximos horários.</p>
         <?php echo $mensagem;?>
         <form action="login.php" method="POST" class="agendamento-form">
             <label for="email">E-mail:</label>
-            <input type="email" name="email" required>
+            <input type="email" autocomplete="email" id="email" name="email" required>
 
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" required>
+            <input type="password" autocomplete="current-password" id="senha" name="senha" required>
 
             <button type="submit">Entrar</button>
         </form>
