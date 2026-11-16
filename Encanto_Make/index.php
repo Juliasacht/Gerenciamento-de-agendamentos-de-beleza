@@ -1,36 +1,28 @@
 <?php
 session_start();
-include 'conexao.php'; 
+include 'conexao.php';
 include 'config.php';
-
-
-$mensagem = ""; 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST["nome"];
-    $email = $_POST["email"];
-    $senha = $_POST["senha"];
-
-    if (empty($nome) || empty($email) || empty($senha)) {
-        $mensagem = exibirMensagem("ERROR: Todos os campos são obrigatórios.", "erro");
+$mensagem = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $senha = $_POST['senha'] ?? '';
+    if ($nome === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $senha === '') {
+        $mensagem = exibirMensagem('Preencha seu nome, um e-mail válido e sua senha.', 'erro');
+    } elseif (strlen($nome) > 100 || strlen($email) > 100) {
+        $mensagem = exibirMensagem('Nome e e-mail devem ter até 100 caracteres.', 'erro');
     } else {
-        $sql = "SELECT id FROM usuarios WHERE email = '$email'";
-        $result = mysqli_query($conexao, $sql);
-
-        if (mysqli_num_rows($result) > 0) {
-            $mensagem = exibirMensagem("ERROR: Este e-mail já está cadastrado.", "erro");
-        } else {
-            $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-            $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
-
-            if (mysqli_query($conexao, $sql)) {
-                $mensagem = exibirMensagem("Cadastro realizado com sucesso!", "sucesso");
-                header("Location: login.php");
-                exit();
-            } else {
-                $mensagem = exibirMensagem("ERROR: Erro ao cadastrar: " . mysqli_error($conexao), "erro");
-            }
+        try {
+            $hash = password_hash($senha, PASSWORD_DEFAULT);
+            $stmt = mysqli_prepare($conexao, 'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)');
+            mysqli_stmt_bind_param($stmt, 'sss', $nome, $email, $hash);
+            mysqli_stmt_execute($stmt);
+            header('Location: login.php?cadastro=sucesso');
+            exit();
+        } catch (mysqli_sql_exception $e) {
+            $texto = $e->getCode() === 1062 ? 'Este e-mail já está cadastrado. Entre na sua conta.' : 'Não foi possível criar sua conta agora. Tente novamente em instantes.';
+            $mensagem = exibirMensagem($texto, 'erro');
+            error_log('Bela Agenda: erro no cadastro. Código: ' . $e->getCode());
         }
     }
 }

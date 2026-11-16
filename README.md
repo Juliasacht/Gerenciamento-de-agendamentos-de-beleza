@@ -15,11 +15,11 @@ Sistema de agendamentos para salão de beleza desenvolvido por **Julia Sacht**, 
    `git clone https://github.com/Juliasacht/Gerenciamento-de-agendamentos-de-beleza.git`
 2. Copie a pasta `Encanto_Make` para `C:\xampp\htdocs\`.
 3. Inicie Apache e MySQL.
-4. No phpMyAdmin, importe o arquivo SQL `Encanto_Make/bancodados`.
+4. No phpMyAdmin, importe `Encanto_Make/database/schema.sql` para criar o banco `bela_agenda` e suas tabelas.
 5. Confira as credenciais e o nome do banco em `Encanto_Make/conexao.php`.
 6. Acesse http://localhost/Encanto_Make/.
 
-A aplicação se chama **Bela Agenda**. A pasta e o banco existentes foram preservados para manter compatibilidade com instalações anteriores.
+A aplicação se chama **Bela Agenda**. A pasta existente foi preservada. A conexão padrão usa o banco `bela_agenda`. Para instalações anteriores, configure `DB_NAME` apenas se o banco estiver íntegro; o arquivo legado `bancodados` não é necessário para uma instalação nova.
 
 ## Tecnologias
 
@@ -29,3 +29,7 @@ PHP com MySQLi, MySQL, HTML5 e CSS3. Não é necessário instalar dependências 
 
 A sintaxe dos arquivos PHP pode ser verificada com `php -l arquivo.php`.
 Para testar o fluxo completo, use uma base de desenvolvimento: cadastre uma conta, entre, crie um horário, edite-o, exclua-o e encerre a sessão.
+
+## Conexão
+
+As variáveis de ambiente `DB_HOST`, `DB_USER`, `DB_PASSWORD` e `DB_NAME` permitem configurar a conexão. Os padrões locais são `localhost`, `root`, senha vazia e `bela_agenda`. Crie as tabelas com `database/schema.sql` antes de abrir o sistema.
