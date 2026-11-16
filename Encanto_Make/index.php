@@ -34,27 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-criarTopo($SITE . " - Cadastro de Usuário");
+criarTopoAcesso($SITE . " - Criar conta");
 ?>
-
-<main id="conteudo">
-    <div class="agendamento">
-        <h2>Seu cuidado começa aqui.</h2><p class="section-description">Crie sua conta e tenha seus agendamentos sempre à mão.</p>
-        <?php echo $mensagem;?>
-        <form action="index.php" method="POST" class="agendamento-form">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-
-            <label for="email">E-mail:</label>
-            <input type="email" autocomplete="email" id="email" name="email" required>
-
-            <label for="senha">Senha:</label>
-            <input type="password" autocomplete="new-password" id="senha" name="senha" required>
-
-            <button type="submit">Cadastrar</button>
-        </form>
-        <p>Já tem uma conta? <a href="login.php">Faça login</a></p>
-    </div>
-</main>
-
-<?php criarRodape(); ?>
+<h2 id="form-title">Comece sua Bela Agenda</h2>
+<p class="access-subtitle">Crie sua conta e organize seus próximos momentos de cuidado.</p>
+<?php echo $mensagem; ?>
+<form action="index.php" method="POST" class="access-form">
+<div class="access-field"><label for="nome">NOME COMPLETO</label><input type="text" id="nome" name="nome" autocomplete="name" placeholder="Como podemos chamar você?" required></div>
+<div class="access-field"><label for="email">EMAIL</label><input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com.br" required></div>
+<div class="access-field"><label for="senha">SENHA</label><input type="password" id="senha" name="senha" autocomplete="new-password" placeholder="Crie sua senha" required></div>
+<button type="submit">CRIAR MINHA CONTA</button>
+</form>
+<p class="access-switch">Já possui uma conta? <a href="login.php">Entrar no sistema</a></p>
+<?php criarRodapeAcesso(); ?>

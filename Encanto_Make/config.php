@@ -51,3 +51,8 @@ function criarTopo($titulo = "Bela Agenda") {
 function criarRodape() {
     echo '<footer><span class="footer-brand">Bela Agenda</span><p>Mais cuidado com você. Mais leveza para sua rotina.</p><small>&copy; ' . date('Y') . ' Bela Agenda</small></footer></body></html>';
 }
+
+function criarTopoAcesso($titulo) {
+    echo '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#985f4b"><title>' . escapar($titulo) . '</title><link rel="icon" href="imagens/bela-agenda.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"></head><body class="access-page"><a class="skip-link" href="#conteudo">Pular para o conteúdo</a><main class="access-card" id="conteudo"><aside class="access-story"><a class="access-brand" href="login.php"><span class="access-mark" aria-hidden="true">✦</span>Bela Agenda</a><h1>Beleza, organização e encanto em cada atendimento.</h1><p>Gerencie seus momentos de beleza com elegância e praticidade.</p><div class="access-signature"><span class="signature-icon" aria-hidden="true">B</span><div><strong>Seu próximo momento de cuidado</strong><small>Mais leveza para a sua rotina.</small></div></div></aside><section class="access-form-panel" aria-labelledby="form-title">';
+}
+function criarRodapeAcesso() { echo '</section></main></body></html>'; }

@@ -36,24 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-criarTopo($SITE . " - Login");
+criarTopoAcesso($SITE . " - Entrar");
 ?>
-
-<main id="conteudo">
-    <div class="agendamento">
-        <h2>Que bom ter você aqui.</h2><p class="section-description">Entre na sua conta para cuidar dos seus próximos horários.</p>
-        <?php echo $mensagem;?>
-        <form action="login.php" method="POST" class="agendamento-form">
-            <label for="email">E-mail:</label>
-            <input type="email" autocomplete="email" id="email" name="email" required>
-
-            <label for="senha">Senha:</label>
-            <input type="password" autocomplete="current-password" id="senha" name="senha" required>
-
-            <button type="submit">Entrar</button>
-        </form>
-        <p>Não tem uma conta? <a href="index.php">Cadastre-se</a></p>
-    </div>
-</main>
-
-<?php criarRodape(); ?>
+<h2 id="form-title">Bem-vinda de volta</h2>
+<p class="access-subtitle">Acesse sua conta para gerenciar seus agendamentos.</p>
+<?php echo $mensagem; ?>
+<form action="login.php" method="POST" class="access-form">
+<div class="access-field"><label for="email">EMAIL</label><input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com.br" required></div>
+<div class="access-field"><label for="senha">SENHA</label><input type="password" id="senha" name="senha" autocomplete="current-password" placeholder="Digite sua senha" required></div>
+<button type="submit">ENTRAR NO SISTEMA</button>
+</form>
+<p class="access-switch">Ainda não possui acesso? <a href="index.php">Cadastrar-se</a></p>
+<?php criarRodapeAcesso(); ?>
